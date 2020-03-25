@@ -1,0 +1,35 @@
+//Open Hashing
+//this procedure is used to perform a linear search from the hashed address to find an empty address to store a record
+
+//ArraySize is declared and it will store the number of items (records) stored in the array
+DECLARE ArraySize: INTEGER
+
+//the address to store the record Record is calculated from a data stored in the record (DataInRecord)
+Address ← HashFunction(Record.DataInRecord)
+
+//the position to store the record is pointed by using SEEK method
+SEEK Address
+
+//the record that is stored at the address calculated by HashFunction and pointed by SEEK method (RecordInAddress) is accessed (read)
+GETRECORD “TextFile”, RecordInAddress
+
+//in case the address that is going to be used contains some data, a new address must be calculated to store the record
+WHILE RecordToBeStored.RecordInAddress <> ""
+//this means that while the record that is stored in the address to be used is different to "" so it contains some data....
+//... the new address to be used will be the next address
+  Address ← Address + 1
+  IF Address > ArraySize 
+    THEN
+      Address ← 1 
+  ENDIF
+  //lines 15 to 18 are used to wrap the array, it means, in case the array has been traversed from Address to ArraySize positions and 
+  //no empty address has been found, the address will be assigned the number 1 to continue searching an empty address from the beginning. 
+  //the new address is pointed again by SEEK method
+  SEEK Address
+  //the record in the new address pointed is read again
+  GETRECORD “TextFile”, RecordInAddress
+ //the while will be finished when the RecordInAddress was equals to "" which means that is empty
+ENDWHILE
+
+//at least, the complete record (Record) will be stored in the address pointed by SEEK method using PUTRECORD
+PUTRECORD “TextFile”,Record
