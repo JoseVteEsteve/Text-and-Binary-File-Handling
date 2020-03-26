@@ -1,8 +1,8 @@
 //Open Hashing
 //this procedure is used to perform a linear search from the hashed address to find an empty address to store a record
 
-//ArraySize is declared and it will store the number of items (records) stored in the array
-DECLARE ArraySize: INTEGER
+//FileSize is declared and it will store the number of items (records) that can be stored in the random file
+DECLARE FileSize: INTEGER
 
 //the address to store the record Record is calculated from a data stored in the record (DataInRecord)
 Address ← HashFunction(Record.DataInRecord)
@@ -18,14 +18,14 @@ WHILE RecordToBeStored.RecordInAddress <> ""
 //this means that while the record that is stored in the address to be used is different to "" so it contains some data....
 //... the new address to be used will be the next address
   Address ← Address + 1
-  IF Address > ArraySize 
+  IF Address > FileSize 
     THEN
       Address ← 1 
   ENDIF
-  //lines 15 to 18 are used to wrap the array, it means, in case the array has been traversed from Address to ArraySize positions and 
+  //lines 15 to 18 are used to wrap the slots to store data, it means, in case the entire file has been traversed from Address to FileSize positions and 
   //no empty address has been found, the address will be assigned the number 1 to continue searching an empty address from the beginning. 
   //the new address is pointed again by SEEK method
-  SEEK "TextFile",Address
+  SEEK "TextFile", Address
   //the record in the new address pointed is read again
   GETRECORD “TextFile”, RecordInAddress
  //the while will be finished when the RecordInAddress was equals to "" which means that is empty
