@@ -1,0 +1,28 @@
+//a record called Record is declared
+TYPE Record
+  Data1: DataType1
+  Data2: DataType2
+  ...  : ...
+  DataN: DataTypeN
+ENDTYPE
+
+//a variable called ThisRecord is declared with the data type Record
+DECLARE ThisRecord: Record
+//this variable will be used to allow the program read all of the file line by line until the end-of-file is reached
+
+//the file is open for read
+OPENFILE “MyFile” FOR READ
+
+//EOF function is used to know if the end-of-file has been reached
+//while the end of the file has not been reached, the program will continue reading the file
+WHILE NOT EOF(“MyFile”)
+  //ReadFile procedure is used because the access of the file is sequential, it means that the records stored are going to be accessed 
+  //one after the other
+  READFILE “MyFile”, ThisRecord //this allows to read the entire file by separating each record separately (record1, record2, ...)
+  OUTPUT ThisRecord.Data1
+  OUTPUT ThisRecord.Data2
+  ...    ...
+  OUTPUT ThisRecord.DataN
+ENDWHILE
+//at least, the file is closed and the program ends
+CLOSEFILE “MyFile”
