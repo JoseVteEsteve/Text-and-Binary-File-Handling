@@ -1,0 +1,34 @@
+//a function is going to be defined that returns the position of the item searched (ItemSearched) in an array
+//the function is called SearchHash and takes as a parameter a data that we will know if is inside the array or not
+//the record is called Record and the data parameter is called SearchedItem
+//ThisData is supposed to be of STRING DataType
+
+DECLARE RecordArray: ARRAY[1:N] OF RECORD
+
+FUNCTION SearchHash (ItemSearched: STRING) RETURNS INTEGER
+  //a hash value is generated using a HashFunction
+  ArrayIndex ← HashFunction(ItemSearched)
+  
+  //the array is traversed to know if the item searched is in the array or no
+  //there are two conditions
+  // - the first one means if the item searched is different than the data stored in the array
+  // - the second one means that the position od the array with number ArrayIndex contains some data
+  WHILE (RecordArray[ArrayIndex].ThisData <> ItemSearched) AND (RecordArray[ArrayIndex].ThisData > "")
+    ArrayIndex ← ArrayIndex + 1
+    //in case needed, the array is wraped like in the other subroutines shown
+    IF ArrayIndex > N
+      THEN
+        ArrayIndex ← 1
+    ENDIF
+  ENDWHILE
+  //the while loop continues until the item searched is equal that ThisData of the record
+  
+  //now, a check is performed to know if the item searched is in the array
+  IF RecordArray[ArrayIndex].ThisData = ItemSearched
+    THEN
+      RETURN Index
+    ELSE
+      Error ← "The item searched is not inside the array"
+      RETURN Error
+  ENDIF
+ENDFUNCTION
