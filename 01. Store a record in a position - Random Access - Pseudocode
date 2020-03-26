@@ -1,7 +1,7 @@
 //the record address must be generated from a data (DataInRecord) stored in a previous Record
 Address ← HashFunction(Record.DataInRecord) 
 //the position to store the record is pointed (accessed) by using SEEK method
-//SEEK method is used to change the position to a given specific position
-SEEK Address
+//SEEK method is used to change the position to a given specific position of the text file
+SEEK "TextFile",Address
 //now, the entire record is stored in the position calculated by HashFunction using the procedure PUTRECORD
 PUTRECORD "TextFile", Record
