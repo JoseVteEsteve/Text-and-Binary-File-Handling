@@ -1,0 +1,46 @@
+//an array called RecordArray which contains N elements of Record data type is declared
+DECLARE RecordArray: ARRAY[1:N] OF Record
+
+//a procedure called InsertRecord is defined to insert a record in a position of the 1D array of Record data type
+PROCEDURE InsertRecord(NewRecord: Record)
+  ArrayFull ← FALSE
+  //this means that the array is not full, so there is any space to store the record
+  //using a hash function (HashFunction) the index of the array (ArrayIndex) is calculated from ThiData data of the record
+  ArrayIndex ← HashFunction(NewRecord.ThisData)
+  ArrayPointer ← Index
+  //a pointer called ArrayPointer is used to point to the position in the array that will be used to store data
+  //from ArrayIndex value, the aim is to find a free slot in the array
+  
+  WHILE RecordArray[ArrayPointer].ThisData < > "" 
+    //this means that while the data (ThisData) stored in the array position pointed by ArrayPointer was different than "" 
+    //this means that that position contains some data, so we cannot overwritten it
+    //take into account that this condition may change and depends on the problem 
+    //take into account that this while loop will be initialised in case the position of the array in which the value is going to be
+    //stored contains some data
+    //if the position of the array in which data is going to be stored is empty, the while loop will not executed
+    ArrayPointer ← ArrayPointer + 1
+    //we are trying to access at the neighbour index of the array
+    IF ArrayPointer > N
+      THEN
+        ArrayPointer ← 1
+    ENDIF
+    //lines  from 19 to 22 are used to wrap back to the beginning of the array (if necessary)
+    
+    //to know if the array is full (plenty of elements), we need to check if the pointer and the index have the same value
+    //in case the pointer and the array index was the same value, no data will be stored in the array
+    IF ArrayPointer = Index
+      THEN
+        ArrayFull ← TRUE
+    ENDIF
+  ENDWHILE
+  //the while loop will end when the program access to a neighbour array location that is empty
+  
+  //now, in case the array is not full.... (there is some space to store data)
+  IF ArrayFull ← FALSE
+    THEN
+      //the new record (entire record) is stored in the pointer position of the array
+      RecordArray[ArrayPointer] ← NewRecord
+    ELSE
+      OUTPUT "There is no space in the array, so the record can't be stored"
+  ENDIF
+ENDPROCEDURE
