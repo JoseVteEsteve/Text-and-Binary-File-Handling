@@ -7,8 +7,8 @@ DECLARE ArraySize: INTEGER
 //the address to store the record Record is calculated from a data stored in the record (DataInRecord)
 Address ← HashFunction(Record.DataInRecord)
 
-//the position to store the record is pointed by using SEEK method
-SEEK Address
+//the position to store the record in the text file is pointed by using SEEK method
+SEEK "TextFile",Address
 
 //the record that is stored at the address calculated by HashFunction and pointed by SEEK method (RecordInAddress) is accessed (read)
 GETRECORD “TextFile”, RecordInAddress
@@ -25,7 +25,7 @@ WHILE RecordToBeStored.RecordInAddress <> ""
   //lines 15 to 18 are used to wrap the array, it means, in case the array has been traversed from Address to ArraySize positions and 
   //no empty address has been found, the address will be assigned the number 1 to continue searching an empty address from the beginning. 
   //the new address is pointed again by SEEK method
-  SEEK Address
+  SEEK "TextFile",Address
   //the record in the new address pointed is read again
   GETRECORD “TextFile”, RecordInAddress
  //the while will be finished when the RecordInAddress was equals to "" which means that is empty
