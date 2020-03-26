@@ -1,0 +1,18 @@
+#Algorithm in Pseudocode to store records in an array 
+
+DECLARE ArrayRecord: ARRAY[1:N] OF DATATYPE
+
+OPENFILE “FileName” FOR WRITE
+FOR i ← 1 TO N
+  PUTRECORD “FileName”, Array[i]
+ENDFOR
+CLOSEFILE “FileName”
+
+
+#Algorithm to access records stored inside an array
+
+OPENFILE “FileName” FOR READ
+FOR i ← 1 TO N
+    GETRECORD “FileName”, ArrayRecord[i]
+ENDFOR
+CLOSEFILE “FileName”
